@@ -45,7 +45,7 @@ class App extends React.Component {
                     </label>
                     <input type="submit" value="Submit"/>
                     {this.state.error ?
-                        <div className="alert alert-danger" role="alert">Wrong username / password !</div> : null}
+                        <div className="alert alert-danger" role="alert">Wrong username or password !</div> : null}
                 </form>
             );
 
