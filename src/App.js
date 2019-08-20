@@ -44,7 +44,8 @@ class App extends React.Component {
                                onChange={event => this.setState({password: event.target.value})}/>
                     </label>
                     <input type="submit" value="Submit"/>
-                    {this.state.error ? <div>Wrong username / password !</div> : null}
+                    {this.state.error ?
+                        <div className="alert alert-danger" role="alert">Wrong username / password !</div> : null}
                 </form>
             );
 
