@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
 
-import HomePage from "./pages/HomePage";
+import HomePage from "./HomePage";
+import LoginPage from "./LoginPage";
 
 class App extends React.Component {
 
@@ -9,46 +10,21 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            isLogin: false,
-            email: "",
-            password: "",
-            error: null
+            isLogined: false
         };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
     }
 
-    handleSubmit(event) {
-
-        if (this.state.email === "user@gtu.edu.tr" && this.state.password === "123") {
-            this.setState({isLogin: true})
-        } else {
-            this.setState({error: true})
+    handleLogin(isLogined) {
+        if (isLogined) {
+            this.setState({isLogined})
         }
-        event.preventDefault();
     }
 
     render() {
-
-        if (!this.state.isLogin) {
-            return (
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Email:
-                        <input type="text" value={this.state.email}
-                               onChange={event => this.setState({email: event.target.value})}/>
-                    </label>
-                    <label>
-                        Password:
-                        <input type="text" value={this.state.password}
-                               onChange={event => this.setState({password: event.target.value})}/>
-                    </label>
-                    <input type="submit" value="Submit"/>
-                    {this.state.error ?
-                        <div className="alert alert-danger" role="alert">Wrong username or password !</div> : null}
-                </form>
-            );
-
+        if (!this.state.isLogined) {
+            return (<LoginPage callback={this.handleLogin}/>);
         }
 
         return (<HomePage/>)
