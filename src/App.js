@@ -14,6 +14,7 @@ class App extends React.Component {
         };
 
         this.handleLogin = this.handleLogin.bind(this);
+        this.handleLogout = this.handleLogout.bind(this);
     }
 
     handleLogin(isLogined) {
@@ -22,12 +23,18 @@ class App extends React.Component {
         }
     }
 
+    handleLogout(wantLogout) {
+        if (wantLogout) {
+            this.setState({isLogined: false})
+        }
+    }
+
     render() {
         if (!this.state.isLogined) {
             return (<LoginPage callback={this.handleLogin}/>);
         }
 
-        return (<HomePage/>)
+        return (<HomePage callbackLogout={this.handleLogout}/>)
     }
 
 }
