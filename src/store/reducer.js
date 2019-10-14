@@ -1,5 +1,5 @@
-import authReducer from "./reducers/auth";
-import userReducer from "./reducers/user";
+import authReducer from "store/reducers/auth";
+import userReducer from "store/reducers/user";
 
 const reducer = (state, action) => {
   console.debug(state, action);

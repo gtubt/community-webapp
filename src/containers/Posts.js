@@ -1,20 +1,18 @@
-import React from "react";
-
-import { Switch, Route, Link } from "react-router";
-
-import Topic from "../components/Topic";
-import Post from "../components/Post";
+import React, { useState, useEffect } from "react";
+import Post from "components/Post";
 
 function Posts({ match }) {
-  console.debug(match);
-
-  let post = null;
-  React.useEffect(() => {
-    const map_restored = new Map(JSON.parse(localStorage.getItem("posts")));
-    post = map_restored.get(match.params.post);
+  const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    const posts = JSON.parse(localStorage.getItem("posts")).filter(function(post) {
+      return post.id === match.params.post;
+    });
+    setPosts(posts);
+    console.debug(posts);
   }, [match.params.post]);
 
-  return <Post {...post} />;
+  console.debug(posts);
+  return posts.map(post => <Post key={post.id} {...post} />);
 }
 
 export default Posts;

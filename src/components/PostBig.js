@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import date from "../modules/date";
+import date from "modules/date";
 
 function PostBig({ id, image, title, content, create_at, author }) {
   // const data = JSON.parse(content);

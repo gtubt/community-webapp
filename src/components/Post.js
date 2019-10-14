@@ -1,6 +1,6 @@
 import React from "react";
 
-import date from "../modules/date";
+import date from "modules/date";
 
 const data = () => {
   const raw = `<p>

@@ -1,8 +1,6 @@
 import React from "react";
 
-import { Switch, Route, Link } from "react-router";
-
-import Topic from "../components/Topic";
+import Topic from "components/Topic";
 
 function Topics({ match }) {
   console.debug(match);

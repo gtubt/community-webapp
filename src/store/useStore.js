@@ -1,6 +1,6 @@
 import React, { createContext, useReducer, useContext } from "react";
 
-import reducer from "./reducer";
+import reducer from "store/reducer";
 
 let auth = false;
 let user = null;

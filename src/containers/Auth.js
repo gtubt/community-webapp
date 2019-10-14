@@ -1,14 +1,12 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-import { StoreContext } from "../store/useStore";
+import { StoreContext } from "store/useStore";
 
-import useFormInput from "../hooks/useFormInput";
+import useFormInput from "hooks/useFormInput";
 
-import "./Auth.css";
-import logo from "../logo.svg";
-
-import API from "../config";
+import "containers/Auth.css";
+import logo from "assets/logo.svg";
 
 function Auth() {
   const { dispatch } = useContext(StoreContext);
@@ -19,7 +17,7 @@ function Auth() {
   const handleSubmit = async e => {
     e.preventDefault();
 
-    const data = await fetch(`${API}/login`, {
+    const data = await fetch(`/api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

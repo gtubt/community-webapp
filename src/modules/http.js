@@ -1,11 +1,9 @@
-const BASE_URL = `https://api.yildizozan.com`;
-
 async function GET(path) {
-  return await fetch(`${BASE_URL}${path}`);
+  return await fetch(`${path}`);
 }
 
 async function POST(path, body) {
-  return await fetch(`${BASE_URL}${path}`, {
+  return await fetch(`${path}`, {
     method: "POST",
     body: JSON.stringify(body)
   });
@@ -23,7 +21,7 @@ async function PUT(path, body) {
 }
 
 async function PATCH(path, body) {
-  return await fetch(`${BASE_URL}${path}`, {
+  return await fetch(`${path}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",

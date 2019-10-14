@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import moment from "moment";
-import date from "../modules/date";
+import date from "modules/date";
 
 function PostSmall({ id, image, title, content, create_at, author }) {
   return (
@@ -16,7 +15,7 @@ function PostSmall({ id, image, title, content, create_at, author }) {
         </h4>
         <div className="mb-1 text-muted">{date(create_at)}</div>
         {/*<p className="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>*/}
-        <a href="#">Continue reading</a>
+        <Link to={`/posts/${id}`}>Continue reading</Link>
       </div>
       <img
         className="card-img-right flex-auto d-none d-md-block"
