@@ -1,14 +1,9 @@
 import React from "react";
 
-function Post(props) {
-  return (
-    <div className="blog-post">
-      <h2 className="blog-post-title">Sample blog post</h2>
-      <p className="blog-post-meta">
-        January 1, 2014 by <a href="#">Mark</a>
-      </p>
+import date from "../modules/date";
 
-      <p>
+const data = () => {
+  const raw = `<p>
         This blog post shows a few different types of content that's supported and styled with Bootstrap. Basic
         typography, images, and code are all supported.
       </p>
@@ -60,7 +55,21 @@ function Post(props) {
         <li>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</li>
         <li>Maecenas sed diam eget risus varius blandit sit amet non magna.</li>
       </ol>
-      <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Sed posuere consectetur est at lobortis.</p>`;
+
+  return {
+    __html: raw.toString()
+  };
+};
+
+function Post({ id, image, title, content: __html, create_at, author }) {
+  return (
+    <div className="blog-post">
+      <h2 className="blog-post-title">{title}</h2>
+      <p className="blog-post-meta">
+        {date(create_at)} by <a href="#">{author}</a>
+      </p>
+      <div className={"blog-post-content"} dangerouslySetInnerHTML={{ __html }} />
     </div>
   );
 }

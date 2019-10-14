@@ -2,9 +2,18 @@ import React, { createContext, useReducer, useContext } from "react";
 
 import reducer from "./reducer";
 
+let auth = false;
+let user = null;
+
+// Check login token
+if (localStorage.getItem("token")) {
+  auth = true;
+  user = JSON.parse(localStorage.getItem("user"));
+}
+
 const initialState = {
-  auth: false,
-  user: null
+  auth,
+  user
 };
 
 export const StoreContext = createContext(initialState);
