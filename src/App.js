@@ -1,59 +1,57 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import HomePage from "./pages/HomePage";
+import { useStore } from "store/useStore";
 
-class App extends React.Component {
+import Admin from "containers/Admin";
+import Main from "containers/Main";
+import Auth from "containers/Auth";
+import Topics from "containers/Topics";
+import Posts from "containers/Posts";
+import NotFound from "containers/NotFound";
 
-    constructor(props) {
-        super(props);
+import Header from "components/Header";
+import Nav from "components/Nav";
+import Footer from "containers/Footer";
+import Subscribe from "components/Subscribe";
 
-        this.state = {
-            isLogin: false,
-            email: "",
-            password: "",
-            error: null
-        };
+function App({ match }) {
+  const { state } = useStore();
+  console.debug(state);
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  return (
+    <Router>
+      <Switch>
+        {state.auth && state.user.is_admin ? <Route path="/admin" component={Admin} /> : null}
+        <Route path="/auth" component={Auth} />
+        <Route path="/subscribe" component={Subscribe} />
 
-    handleSubmit(event) {
+        <Route>
+          <Header />
+          <Nav />
+          <Route path="/" component={Main} exact />
+          <Route path="/topics/:topic" component={Topics} />
+          <Route path="/posts/:post" component={Posts} />
+          <Footer />
+        </Route>
 
-        if (this.state.email === "user@gtu.edu.tr" && this.state.password === "123") {
-            this.setState({isLogin: true})
-        } else {
-            this.setState({error: true})
-        }
-        event.preventDefault();
-    }
+        {/*<Route*/}
+        {/*  component={({ match }) => (*/}
+        {/*    <>*/}
+        {/*      <Header />*/}
+        {/*      <Nav />*/}
+        {/*      <Route path="/" component={Main} exact />*/}
+        {/*      <Route path="/topics/:topic" component={Topics} />*/}
+        {/*      <Route path="/posts/:post" component={Posts} />*/}
+        {/*      <Footer />*/}
+        {/*    </>*/}
+        {/*  )}*/}
+        {/*/>*/}
 
-    render() {
-
-        if (!this.state.isLogin) {
-            return (
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Email:
-                        <input type="text" value={this.state.email}
-                               onChange={event => this.setState({email: event.target.value})}/>
-                    </label>
-                    <label>
-                        Password:
-                        <input type="text" value={this.state.password}
-                               onChange={event => this.setState({password: event.target.value})}/>
-                    </label>
-                    <input type="submit" value="Submit"/>
-                    {this.state.error ?
-                        <div className="alert alert-danger" role="alert">Wrong username / password !</div> : null}
-                </form>
-            );
-
-        }
-
-        return (<HomePage/>)
-    }
-
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
