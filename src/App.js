@@ -1,42 +1,57 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
+import { useStore } from "store/useStore";
 
-class App extends React.Component {
+import Admin from "containers/Admin";
+import Main from "containers/Main";
+import Auth from "containers/Auth";
+import Topics from "containers/Topics";
+import Posts from "containers/Posts";
+import NotFound from "containers/NotFound";
 
-    constructor(props) {
-        super(props);
+import Header from "components/Header";
+import Nav from "components/Nav";
+import Footer from "containers/Footer";
+import Subscribe from "components/Subscribe";
 
-        this.state = {
-            isLogined: false
-        };
+function App({ match }) {
+  const { state } = useStore();
+  console.debug(state);
 
-        this.handleLogin = this.handleLogin.bind(this);
-        this.handleLogout = this.handleLogout.bind(this);
-    }
+  return (
+    <Router>
+      <Switch>
+        {state.auth && state.user.is_admin ? <Route path="/admin" component={Admin} /> : null}
+        <Route path="/auth" component={Auth} />
+        <Route path="/subscribe" component={Subscribe} />
 
-    handleLogin(isLogined) {
-        if (isLogined) {
-            this.setState({isLogined})
-        }
-    }
+        <Route>
+          <Header />
+          <Nav />
+          <Route path="/" component={Main} exact />
+          <Route path="/topics/:topic" component={Topics} />
+          <Route path="/posts/:post" component={Posts} />
+          <Footer />
+        </Route>
 
-    handleLogout(wantLogout) {
-        if (wantLogout) {
-            this.setState({isLogined: false})
-        }
-    }
+        {/*<Route*/}
+        {/*  component={({ match }) => (*/}
+        {/*    <>*/}
+        {/*      <Header />*/}
+        {/*      <Nav />*/}
+        {/*      <Route path="/" component={Main} exact />*/}
+        {/*      <Route path="/topics/:topic" component={Topics} />*/}
+        {/*      <Route path="/posts/:post" component={Posts} />*/}
+        {/*      <Footer />*/}
+        {/*    </>*/}
+        {/*  )}*/}
+        {/*/>*/}
 
-    render() {
-        if (!this.state.isLogined) {
-            return (<LoginPage callback={this.handleLogin}/>);
-        }
-
-        return (<HomePage callbackLogout={this.handleLogout}/>)
-    }
-
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
